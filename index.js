@@ -1,0 +1,1 @@
+module.exports.SearchLite = require("./src/SearchLite.js")
