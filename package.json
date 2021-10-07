@@ -1,0 +1,24 @@
+{
+  "name": "searchlite",
+  "version": "1.0.0",
+  "description": "an easy object search library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AxelRothe/searchLite.git"
+  },
+  "keywords": [
+    "search",
+    "object",
+    "localdatabase"
+  ],
+  "author": "Axel Rothe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AxelRothe/searchLite/issues"
+  },
+  "homepage": "https://github.com/AxelRothe/searchLite#readme"
+}
