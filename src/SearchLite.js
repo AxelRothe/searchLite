@@ -121,6 +121,15 @@ class SearchLite {
         }
     }
 
+    updateAll(array, property, compare, options = null){
+        let search = this.list(array, property, compare[property], options);
+
+        for (let searchResult of search.result) {
+            searchResult = Object.assign(search.result, compare);
+        }
+        return search.result
+    }
+
     /**
      * Removes an object from the array, it does not remove it from the stack
      *
