@@ -5,6 +5,9 @@
  */
 
 class SearchResult {
+    count;
+    result;
+
     constructor(count, result) {
         this.count = count;
         this.result = result;
@@ -111,7 +114,11 @@ class SearchLite {
         return false;
     }
 
-    count(array, property, compare) {
+    count(array, property, compare){
+        return this.list(array, property, compare);
+    }
+
+    list(array, property, compare) {
         let counter = 0;
         let resultList = [];
         for (let i = 0; i < array.length; i++) {
