@@ -13,8 +13,16 @@ class SearchResult {
         this.result = result;
     }
 
+    get success(){
+        return this.wasSuccess()
+    }
+
     wasSuccess() {
         return this.count >= 0;
+    }
+
+    get failure(){
+        return this.wasFailure()
     }
 
     wasFailure() {
@@ -85,6 +93,34 @@ class SearchLite {
         return new SearchResult(-1, {});
     }
 
+    findAsync(array, property, compare, options = null) {
+        return new Promise((resolve, reject) => {
+            resolve(this.find(array, property, compare, options))
+        })
+    }
+
+    update(array, property, compare, options = null) {
+        let search = this.find(array, property, compare[property], options);
+        if (search.wasSuccess()) {
+            search.result = Object.assign(search.result, compare);
+            return true;
+        } else if (search.wasFailure()) {
+            if (array instanceof Array) {
+                array.push(compare);
+                return true;
+            }
+            if (array instanceof Set) {
+                array.add(compare);
+                return true;
+            }
+            if (array instanceof Object) {
+                array[compare[property]] = compare;
+                return true;
+            }
+            return false;
+        }
+    }
+
     /**
      * Removes an object from the array, it does not remove it from the stack
      *
@@ -102,6 +138,14 @@ class SearchLite {
             return true;
         } else {
             return false;
+        }
+    }
+
+    removeAll(array, property, compare) {
+        if (this.remove(array, property, compare)) {
+            this.removeAll(array, property, compare);
+        } else {
+            return true;
         }
     }
 
@@ -136,6 +180,23 @@ class SearchLite {
                 array: array,
             });
             return new SearchResult(-1, {});
+        }
+    }
+
+    contains(array, item){
+        return array.indexOf(item) >= 0;
+    }
+
+    toggle(array, item){
+        if (this.contains(array, item)){
+            for (let i=0; i<array.length; i++){
+                if (array[i] === item){
+                    array.splice(i,1);
+                    break;
+                }
+            }
+        } else {
+            array.push(item);
         }
     }
 
